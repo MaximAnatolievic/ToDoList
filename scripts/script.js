@@ -10,16 +10,7 @@ const todoData = [];
 
 let keys = Object.keys(localStorage);
 for(let key of keys) {
-    const newObj = {
-      value: key,
-    }
-      if(localStorage.getItem(key)=='true'){
-        newObj.completed = true;
-      }
-      else{
-          newObj.completed = false;
-      }  
-
+    const newObj = JSON.parse(localStorage.getItem(key));
     todoData.push(newObj);
 };
 
@@ -49,7 +40,7 @@ const render = function(){
 
         btnComplete.addEventListener('click', function(){
             item.completed = !item.completed;
-            localStorage.setItem(item.value, item.completed);
+            localStorage.setItem(item.value, JSON.stringify(item));
             render();
         });
 
@@ -74,7 +65,7 @@ todoControl.addEventListener('submit', function(event){
     }
     if(headerInput.value!=''){
     todoData.push(newTodo);
-    localStorage.setItem(newTodo.value, newTodo.completed);
+    localStorage.setItem(newTodo.value, JSON.stringify(newTodo));
     }
     headerInput.value = '';
     render();
