@@ -63,10 +63,19 @@ todoControl.addEventListener('submit', function(event){
         value: headerInput.value,
         completed: false,
     }
-    if(headerInput.value!=''){
-    todoData.push(newTodo);
-    localStorage.setItem(newTodo.value, JSON.stringify(newTodo));
+
+    let values =[];
+    for(let i = 0; i<todoData.length; i++){
+        values[i] = todoData[i].value;
     }
+    if(values.indexOf(headerInput.value)!=-1){
+        alert('Такое дело уже в списке!');
+    }
+    else if(headerInput.value!=''){
+        todoData.push(newTodo);
+        localStorage.setItem(newTodo.value, JSON.stringify(newTodo));
+    }
+    
     headerInput.value = '';
     render();
   
